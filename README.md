@@ -17,7 +17,7 @@ Results in the original paper were produced on a 20-core machine with the follow
 
 `mpirun -np 19 python3 -m baselines.run --alg=her --env=FetchPickAndPlace-v1 --num_env=2 --num_timesteps=250000 --save_path="some/path' --log_path="some/path"`
 
-I am currently working on an 8-core machine, which, for some reason, has severe troubles executing `mpirun baselines.run` for `-np > 1` and `--num_env > 1`. Even though, occationally, it works, most of the time, I get errors such as *a system call failed during shared memory initialization that should not have* or *Broken Pipe Error*. 
+I am currently working on an 8-core machine, which, for some reason, has severe troubles executing `mpirun baselines.run` for `-np > 1` and `--num_env > 1`. Even though, occationally, it works, most of the time, I get errors such as *a system call failed during shared memory initialization that should not have* or *Broken Pipe Error*. When looking at CPU usage, one could see that initiallizing *num_env* environments required a lot of extra computation power, which, together *num_cpu* trainings running in parallel, was to much for *mpirun*.
 
 To understand what is happening, here are some important things to mention:
 * `-np <num_cpu>` trainings are run in parallel, the results are combined after each episode
