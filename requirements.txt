@@ -1,0 +1,8 @@
+numpy
+glfw>=1.4.0
+Cython>=0.27.2
+scikit-image
+tensorflow>=1.14
+mpi4py
+seaborn
+glob2
