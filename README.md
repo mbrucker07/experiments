@@ -23,9 +23,10 @@ To understand what is happening, here are some important things to mention:
 * `-np <num_cpu>` trainings are run in parallel, the results are combined after each episode
 * in each of the trainings, `--num_env=<num_env>` parallel environments are simulated to generate experience (in the HER code, the parameter is used as *rollout_batch_size*, which cannot be changed *config.py*)
 * therefore, the overall experience generated is roughly proportional to *<num_cpu>* and *<num_env>*
+* `num_epochs = num_timesteps // n_cycles // max_episode_steps // num_env` where num_timesteps is the num_timesteps per cpu!
 
-In order to reproduce the results without using `mpirun`, I kept the product of *<num_cpu>* and *<num_env>* constant and issued the following command on "one core only" with 38 parallel envs. 
+In order to reproduce the results without using `mpirun`, I kept the product of *<num_cpu>* and *<num_env>* constant and issued the following command on "one core only" with 38 parallel envs. Corresponding number of timesteps: `num_timesteps = num_epochs * n*cycles * max_episode_steps * num_env = 50 * 50 * 50 * 38 = 4750000`.
 
-`python3 -m baselines.run --alg=her --env=FetchPickAndPlace-v1 --num_env=38 --num_timesteps=250000 --save_path="some/path' --log_path="some/path"`
+`python3 -m baselines.run --alg=her --env=FetchPickAndPlace-v1 --num_env=38 --num_timesteps=4750000 --save_path="some/path' --log_path="some/path"`
 
 This worked out very well, training time was about 2 hours and the results were comparable to the ones in the paper for *FetchPickAndPlace-v1*. Since the parallel envs are basically threads created in the python code, the overall CPU usage was about 75% distributed over all 8 cores on the machine.
