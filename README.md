@@ -30,3 +30,7 @@ In order to reproduce the results without using `mpirun`, I kept the product of 
 `python3 -m baselines.run --alg=her --env=FetchPickAndPlace-v1 --num_env=38 --num_timesteps=4750000 --save_path="some/path' --log_path="some/path"`
 
 This worked out very well, training time was about 2 hours and the results were comparable to the ones in the paper for *FetchPickAndPlace-v1*. Since the parallel envs are basically threads created in the python code, the overall CPU usage was about 75% distributed over all 8 cores on the machine.
+
+## Result figures
+
+The figures that can be found in this directory have all been produced with `num_env=38`. As you can see, *FetchPickAndPlace-v1* results are very similar to the results in the paper. *FetchPush-v1* achieves the same high accuracy, however, it takes slightly longer compared to the paper. Even with doubled number of epochs *FetchSlide-v1* does not achieve the same accuracy as in the paper. Training with even more epochs is underway. In the custom environment *myUR5GripperFall-v1*, the accuracy was not as high as expected, which is due to some hardly predictable bouncing of the stick. A fix of the environment is underway. 
