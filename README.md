@@ -34,3 +34,9 @@ This worked out very well, training time was about 2 hours and the results were 
 ## Result figures
 
 The figures that can be found in this directory have all been produced with `num_env=38`. As you can see, *FetchPickAndPlace-v1* results are very similar to the results in the paper. *FetchPush-v1* achieves the same high accuracy, however, it takes slightly longer compared to the paper. Even with doubled number of epochs *FetchSlide-v1* does not achieve the same accuracy as in the paper. Training with even more epochs is underway. In the custom environment *myUR5GripperFall-v1*, the accuracy was not as high as expected, which is due to some hardly predictable bouncing of the stick. A fix of the environment is underway. 
+
+
+## Environment on Ubuntu16
+
+- had to install some pip packages
+- sudo apt-get install libglew-dev
